@@ -1,0 +1,52 @@
+general {
+    colors = true
+    color_good = "#C1E1C1" 
+    color_degraded = "#D6B85A"
+    color_bad = "#FF6961"
+    interval = 5
+}
+
+order += "ethernet eth0"
+order += "wireless wlan0"
+order += "volume master"
+order += "battery 0"
+order += "tztime local"
+
+# Clock
+tztime local {
+    format = "%Y-%m-%d %H:%M"
+}
+
+# Battery
+battery 0 {
+    format = "%status %percentage %remaining %emptytime"
+    format_down = "No battery"
+    status_chr = "CHR"
+    status_bat = "BAT"
+    status_unk = "UNK"
+    status_full = "FULL"
+    path = "/sys/class/power_supply/BAT%d/uevent"
+    low_threshold = 10
+}
+
+# Volume
+volume master {
+    format = "♪: %volume"
+    format_muted = "♪: muted (%volume)"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+# Wireless 
+wireless wlan0 {
+    format_up = "W: (%quality at %essid, %bitrate / %frequency) %ip"
+    format_down = "W: Down"
+    format_quality = "%03d%s"
+}
+
+# Ethernet
+ethernet eth0 {
+    format_up = "E: %ip (%speed)"
+    format_down = "E: Down"
+}
